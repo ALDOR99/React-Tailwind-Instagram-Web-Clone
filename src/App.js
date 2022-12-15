@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Input from "components/Input";
 
 //------------------------------------------------------------------------------------------------------------------------------
 
@@ -6,7 +7,10 @@ function App() {
   //---------------------------------------------
 
   const ref = useRef();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
+  const enable = username && password;
   //---------------------------------------------
 
   useEffect(() => {
@@ -66,26 +70,44 @@ function App() {
         </div>
       </div>
 
-      <div className="w-[350px] bg-white border px-[50px] pt-8 pb-2">
-        <a href="#" className="flex justify-center">
+      <div className="w-[350px] bg-white border px-[40px] pt-10 pb-2">
+        <a href="#" className="flex justify-center mb-8">
           <img
             className="h-[51px]"
             src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png"
           />
         </a>
 
-        <form>
-          <label className="block relative">
-            <input
-              required={true}
-              type="text"
-              className="bg-zinc-50 border outline-none text-sm rounded-sm w-full h-[38px] focus:border-gray-400 px-2 valid:pt-[10px] peer"
-            />
+        <form className="grid gap-y-1.5">
+          <Input
+            type="text"
+            value={username}
+            label="Phone number,username or email"
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-            <small className="absolute top-1/2 left-[9px] cursor-text pointer-events-none text-xs text-gray-500 transition-all peer-valid:text-[10px] peer-valid:top-2.5 -translate-y-1/2">
-              Phone number,username or email
-            </small>
-          </label>
+          <Input
+            type="password"
+            value={password}
+            label="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <button
+            disabled={!enable}
+            type="submit"
+            className="h-[30px] rounded font-medium bg-brand text-white text-sm disabled:opacity-50"
+          >
+            Log In
+          </button>
+
+          <div className="flex items-center">
+            <div className="h-px bg-gray-300 flex-1" />
+            <span className="px-4 text-[13px] text-gray-500 font-semibold">
+              OR
+            </span>
+            <div className="h-px bg-gray-300 flex-1" />
+          </div>
         </form>
       </div>
     </div>
