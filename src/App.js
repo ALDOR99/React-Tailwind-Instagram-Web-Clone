@@ -65,6 +65,15 @@ function App() {
           />
         </div>
       </div>
+
+      <div className="w-[350px] bg-white border">
+        <img
+          className="h-[51px]"
+          src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png"
+        />
+
+        <form></form>
+      </div>
     </div>
   );
 }
