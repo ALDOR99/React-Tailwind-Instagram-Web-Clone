@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Input from "components/Input";
+import { AiFillFacebook } from "react-icons/ai";
 
 //------------------------------------------------------------------------------------------------------------------------------
 
@@ -43,7 +44,7 @@ function App() {
   }, [ref]);
 
   return (
-    <div className="h-full w-full flex items-center justify-center gap-x-8">
+    <div className="h-full w-full flex flex-wrap overflow-auto items-center justify-center gap-x-8">
       <div className="w-[380px] h-[581px] bg-logo-pattern relative bg-[lenght:468.32px_634.15px] bg-[top_left_-46px]">
         <div
           className="w-[250px] h-[538px] absolute top-[27px] right-[18px]"
@@ -70,45 +71,68 @@ function App() {
         </div>
       </div>
 
-      <div className="w-[350px] bg-white border px-[40px] pt-10 pb-2">
-        <a href="#" className="flex justify-center mb-8">
-          <img
-            className="h-[51px]"
-            src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png"
-          />
-        </a>
+      <div className="w-[350px] grid gap-y-3">
+        <div className=" bg-white border px-[40px] pt-10 pb-6">
+          <a href="#" className="flex justify-center mb-8">
+            <img
+              className="h-[51px]"
+              src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png"
+            />
+          </a>
 
-        <form className="grid gap-y-1.5">
-          <Input
-            type="text"
-            value={username}
-            label="Phone number,username or email"
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <form className="grid gap-y-1.5">
+            <Input
+              type="text"
+              value={username}
+              label="Phone number,username or email"
+              onChange={(e) => setUsername(e.target.value)}
+            />
 
-          <Input
-            type="password"
-            value={password}
-            label="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            <Input
+              type="password"
+              value={password}
+              label="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <button
-            disabled={!enable}
-            type="submit"
-            className="h-[30px] rounded font-medium bg-brand text-white text-sm disabled:opacity-50"
-          >
-            Log In
-          </button>
+            <button
+              disabled={!enable}
+              type="submit"
+              className="h-[30px] mt-1 rounded font-medium bg-brand text-white text-sm disabled:opacity-50"
+            >
+              Log In
+            </button>
 
-          <div className="flex items-center">
-            <div className="h-px bg-gray-300 flex-1" />
-            <span className="px-4 text-[13px] text-gray-500 font-semibold">
-              OR
-            </span>
-            <div className="h-px bg-gray-300 flex-1" />
-          </div>
-        </form>
+            <div className="flex items-center my-2.5 mb-3.5">
+              <div className="h-px bg-gray-300 flex-1" />
+              <span className="px-4 text-[13px] text-gray-500 font-semibold">
+                OR
+              </span>
+              <div className="h-px bg-gray-300 flex-1" />
+            </div>
+            <a
+              href="#"
+              className="flex justify-center mb-2.5 items-center gap-x-2 text-sm font-semibold text-facebook"
+            >
+              <AiFillFacebook size={20} />
+              Log in with Facebook
+            </a>
+
+            <a
+              href="#"
+              className="text-xs flex items-center justify-center text-link"
+            >
+              Forgot Password
+            </a>
+          </form>
+        </div>
+
+        <div className="bg-white border p-4 text-sm text-center">
+          Don't have an account ?{" "}
+          <a href="#" className="font-semibold text-brand">
+            Sign up
+          </a>
+        </div>
       </div>
     </div>
   );

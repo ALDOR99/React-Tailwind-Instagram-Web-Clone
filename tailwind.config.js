@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       colors: {
         brand: "#0095f6",
+        facebook: "#385185",
+        link: "#00376b",
       },
       backgroundImage: {
         "logo-pattern":
