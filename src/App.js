@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="h-full w-full flex flex-wrap overflow-auto items-center justify-center gap-x-8">
-      <div className="w-[380px] h-[581px] bg-logo-pattern relative bg-[lenght:468.32px_634.15px] bg-[top_left_-46px]">
+      <div className="hidden md:block w-[380px] h-[581px] bg-logo-pattern relative bg-[lenght:468.32px_634.15px] bg-[top_left_-46px]">
         <div
           className="w-[250px] h-[538px] absolute top-[27px] right-[18px]"
           ref={ref}
