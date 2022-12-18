@@ -1,9 +1,10 @@
+import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
 //--------------------------------------------------------------------------
 
 export default function PrivateRoute({ children }) {
-  const user = false;
+  const user = useSelector((state) => state.auth.user);
   const location = useLocation();
 
   //-------------------------------------------------
