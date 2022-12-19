@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import toast from "react-hot-toast";
+import { userHandle } from "utils";
 //----------------------------------------------------------------------------------------
 const firebaseConfig = {
   apiKey: "AIzaSyCFhCIwftrRyc8pwvgBK-dxfNUjmpqfvGM",
@@ -13,3 +19,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+  userHandle(user || false);
+});
+
+export const login = async (email, password) => {
+  try {
+    const response = await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    toast.error(err.code);
+  }
+};
