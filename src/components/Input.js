@@ -1,9 +1,11 @@
+import { useField } from "formik";
 import { useEffect, useRef, useState } from "react";
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 export default function Input({ label, type = "text", ...props }) {
   //-------------------------------------------
+  const [field, meta, helpers] = useField(props);
   const [show, setShow] = useState(false);
   const [inputType, setType] = useState(type);
 
@@ -20,9 +22,9 @@ export default function Input({ label, type = "text", ...props }) {
   return (
     <label className="block relative flex bg-zinc-50 border rounded-sm focus-within::border-gray-400">
       <input
-        required={true}
         type={inputType}
         className=" outline-none text-xs w-full h-[38px]  px-2 valid:pt-[10px] peer"
+        {...field}
         {...props}
       />
       <small className="absolute top-1/2 left-[9px] cursor-text pointer-events-none text-xs text-gray-500 transition-all peer-valid:text-[10px] peer-valid:top-2.5 -translate-y-1/2">

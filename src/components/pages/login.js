@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Input from "components/Input";
 import { AiFillFacebook } from "react-icons/ai";
-import { useDispatch } from "react-redux";
-import { setUser } from "store/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { login } from "firebase.js";
-
+import { Formik, Form } from "formik";
+import { LoginSchema } from "validation";
 //-----------------------------------------------------------------------------------------------------------
 
 export default function Login() {
@@ -14,10 +13,7 @@ export default function Login() {
   const location = useLocation();
 
   const ref = useRef();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
-  const enable = username && password;
   //---------------------------------------------
 
   useEffect(() => {
@@ -41,9 +37,8 @@ export default function Login() {
     };
   }, [ref]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await login(username, password);
+  const handleSubmit = async (values, actions) => {
+    await login(...values);
 
     navigate(location.state?.return_url || "/", {
       replace: true,
@@ -86,52 +81,52 @@ export default function Login() {
               src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png"
             />
           </a>
+          <Formik
+            validationSchema={LoginSchema}
+            initialValues={{
+              username: "",
+              password: "",
+            }}
+            onSubmit={handleSubmit}
+          >
+            {({ isSubmitting, values }) => (
+              <Form className="grid gap-y-1.5">
+                <pre>{JSON.stringify(values, null, 2)}</pre>
 
-          <form onSubmit={handleSubmit} className="grid gap-y-1.5">
-            <Input
-              type="text"
-              value={username}
-              label="Phone number,username or email"
-              onChange={(e) => setUsername(e.target.value)}
-            />
+                <Input name="username" label="Phone number,username or email" />
+                <Input type="password" name="password" label="Password" />
 
-            <Input
-              type="password"
-              value={password}
-              label="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+                <button
+                  type="submit"
+                  className="h-[30px] mt-1 rounded font-medium bg-brand text-white text-sm disabled:opacity-50"
+                >
+                  Log In
+                </button>
 
-            <button
-              disabled={!enable}
-              type="submit"
-              className="h-[30px] mt-1 rounded font-medium bg-brand text-white text-sm disabled:opacity-50"
-            >
-              Log In
-            </button>
+                <div className="flex items-center my-2.5 mb-3.5">
+                  <div className="h-px bg-gray-300 flex-1" />
+                  <span className="px-4 text-[13px] text-gray-500 font-semibold">
+                    OR
+                  </span>
+                  <div className="h-px bg-gray-300 flex-1" />
+                </div>
+                <a
+                  href="#"
+                  className="flex justify-center mb-2.5 items-center gap-x-2 text-sm font-semibold text-facebook"
+                >
+                  <AiFillFacebook size={20} />
+                  Log in with Facebook
+                </a>
 
-            <div className="flex items-center my-2.5 mb-3.5">
-              <div className="h-px bg-gray-300 flex-1" />
-              <span className="px-4 text-[13px] text-gray-500 font-semibold">
-                OR
-              </span>
-              <div className="h-px bg-gray-300 flex-1" />
-            </div>
-            <a
-              href="#"
-              className="flex justify-center mb-2.5 items-center gap-x-2 text-sm font-semibold text-facebook"
-            >
-              <AiFillFacebook size={20} />
-              Log in with Facebook
-            </a>
-
-            <a
-              href="#"
-              className="text-xs flex items-center justify-center text-link"
-            >
-              Forgot Password
-            </a>
-          </form>
+                <a
+                  href="#"
+                  className="text-xs flex items-center justify-center text-link"
+                >
+                  Forgot Password
+                </a>
+              </Form>
+            )}
+          </Formik>
         </div>
 
         <div className="bg-white border p-4 text-sm text-center">

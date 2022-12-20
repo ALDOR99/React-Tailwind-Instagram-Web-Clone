@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
+  signOut,
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -27,6 +28,14 @@ onAuthStateChanged(auth, (user) => {
 export const login = async (email, password) => {
   try {
     const response = await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    toast.error(err.code);
+  }
+};
+
+export const logout = async () => {
+  try {
+    await signOut(auth);
   } catch (err) {
     toast.error(err.code);
   }
