@@ -4,7 +4,8 @@ import { AiFillFacebook } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 import { login } from "firebase.js";
 import { Formik, Form } from "formik";
-import { LoginSchema } from "validation";
+//import { LoginSchema } from "validation";
+
 //-----------------------------------------------------------------------------------------------------------
 
 export default function Login() {
@@ -82,7 +83,7 @@ export default function Login() {
             />
           </a>
           <Formik
-            validationSchema={LoginSchema}
+            //validationSchema={LoginSchema}
             initialValues={{
               username: "",
               password: "",
@@ -129,7 +130,7 @@ export default function Login() {
           </Formik>
         </div>
 
-        <div className="bg-white border p-4 text-sm text-center">
+        <div className="bg-swhite border p-4 text-sm text-center">
           Don't have an account ?{" "}
           <a href="#" className="font-semibold text-brand">
             Sign up
