@@ -38,9 +38,15 @@ export default function Login() {
     };
   }, [ref]);
 
-  const handleSubmit = async (values, actions) => {
-    await login(...values);
+  const images = [
+    "https://www.instagram.com/static/images/homepage/screenshots/screenshot1-2x.png/cfd999368de3.png",
+    "https://www.instagram.com/static/images/homepage/screenshots/screenshot2-2x.png/80b8aebdea57.png",
+    "https://www.instagram.com/static/images/homepage/screenshots/screenshot4-2x.png/8e9224a71939.png",
+    "https://www.instagram.com/static/images/homepage/screenshots/screenshot3-2x.png/fe2540684ab2.png",
+  ];
 
+  const handleSubmit = async (values, actions) => {
+    await login(values.username, values.password);
     navigate(location.state?.return_url || "/", {
       replace: true,
     });
@@ -53,24 +59,13 @@ export default function Login() {
           className="w-[250px] h-[538px] absolute top-[27px] right-[18px]"
           ref={ref}
         >
-          <img
-            className="w-full h-full absolute top-0 left-0 opacity-0 transition-opacity duration-1000 ease-linear"
-            src=" https://www.instagram.com/static/images/homepage/screenshots/screenshot1-2x.png/cfd999368de3.png"
-          />
-          <img
-            className="w-full h-full absolute top-0 left-0 opacity-0 transition-opacity duration-1000 ease-linear"
-            src="https://www.instagram.com/static/images/homepage/screenshots/screenshot2-2x.png/80b8aebdea57.png"
-          />
-          <img
-            className="w-full h-full absolute top-0 left-0 opacity-0 transition-opacity duration-1000 ease-linear"
-            src="https://www.instagram.com/static/images/homepage/screenshots/screenshot3-2x.png/fe2540684ab2.png"
-            alt=""
-          />
-          <img
-            className="w-full h-full absolute top-0 left-0 opacity-0 transition-opacity duration-1000 ease-linear"
-            src="https://www.instagram.com/static/images/homepage/screenshots/screenshot4-2x.png/8e9224a71939.png"
-            alt=""
-          />
+          {images.map((images, key) => (
+            <img
+              key={key}
+              className="w-full h-full absolute top-0 left-0 opacity-0 transition-opacity duration-1000 ease-linear"
+              src={images}
+            />
+          ))}
         </div>
       </div>
 
@@ -90,15 +85,14 @@ export default function Login() {
             }}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting, values }) => (
+            {({ isSubmitting, isValid, dirty, values }) => (
               <Form className="grid gap-y-1.5">
-                <pre>{JSON.stringify(values, null, 2)}</pre>
-
                 <Input name="username" label="Phone number,username or email" />
                 <Input type="password" name="password" label="Password" />
 
                 <button
                   type="submit"
+                  disabled={!isValid || !dirty || isSubmitting}
                   className="h-[30px] mt-1 rounded font-medium bg-brand text-white text-sm disabled:opacity-50"
                 >
                   Log In
